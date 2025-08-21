@@ -4,42 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const Admin = () => {
-  // Mock booking data
-  const bookings = [
-    {
-      id: "1",
-      user: "Abebe Kebede",
-      phone: "+251 912 345 678",
-      email: "abebe@example.com",
-      sport: "Soccer",
-      date: "2024-08-22",
-      timeSlot: "18:00 - 19:00",
-      type: "Group",
-      status: "Confirmed"
-    },
-    {
-      id: "2", 
-      user: "Hanan Ahmed",
-      phone: "+251 923 456 789",
-      email: "hanan@example.com",
-      sport: "Basketball",
-      date: "2024-08-22",
-      timeSlot: "16:00 - 17:00",
-      type: "Individual",
-      status: "Confirmed"
-    },
-    {
-      id: "3",
-      user: "Dawit Tadesse",
-      phone: "+251 934 567 890", 
-      email: "dawit@example.com",
-      sport: "Soccer",
-      date: "2024-08-23",
-      timeSlot: "19:00 - 20:00",
-      type: "Group",
-      status: "Pending"
-    }
-  ];
+  // Bookings will be loaded from Supabase - no mock data
+  const bookings: any[] = [];
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -55,12 +21,12 @@ const Admin = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="court-card p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-muted-foreground text-sm">Today's Bookings</p>
-                <p className="text-3xl font-bold text-primary">12</p>
+                <p className="text-3xl font-bold text-primary">0</p>
               </div>
               <div className="text-4xl">📊</div>
             </div>
@@ -70,7 +36,7 @@ const Admin = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-muted-foreground text-sm">Active Courts</p>
-                <p className="text-3xl font-bold text-primary">4</p>
+                <p className="text-3xl font-bold text-primary">0</p>
               </div>
               <div className="text-4xl">🏟️</div>
             </div>
@@ -80,19 +46,9 @@ const Admin = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-muted-foreground text-sm">Total Users</p>
-                <p className="text-3xl font-bold text-primary">256</p>
+                <p className="text-3xl font-bold text-primary">0</p>
               </div>
               <div className="text-4xl">👥</div>
-            </div>
-          </Card>
-          
-          <Card className="court-card p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-muted-foreground text-sm">Revenue</p>
-                <p className="text-3xl font-bold text-primary">₦5,420</p>
-              </div>
-              <div className="text-4xl">💰</div>
             </div>
           </Card>
         </div>
@@ -127,49 +83,57 @@ const Admin = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {bookings.map((booking) => (
-                  <TableRow key={booking.id}>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{booking.user}</div>
-                        <div className="text-sm text-muted-foreground">{booking.email}</div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-sm">{booking.phone}</TableCell>
-                    <TableCell>
-                      <Badge variant={booking.sport === "Soccer" ? "default" : "secondary"}>
-                        {booking.sport === "Soccer" ? "⚽" : "🏀"} {booking.sport}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{booking.date}</div>
-                        <div className="text-sm text-muted-foreground">{booking.timeSlot}</div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{booking.type}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge 
-                        variant={booking.status === "Confirmed" ? "default" : "secondary"}
-                        className={booking.status === "Confirmed" ? "bg-primary" : ""}
-                      >
-                        {booking.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
-                          Edit
-                        </Button>
-                        <Button size="sm" variant="destructive">
-                          Cancel
-                        </Button>
-                      </div>
+                {bookings.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                      No bookings yet. Connect to Supabase to see real data.
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  bookings.map((booking) => (
+                    <TableRow key={booking.id}>
+                      <TableCell>
+                        <div>
+                          <div className="font-medium">{booking.user}</div>
+                          <div className="text-sm text-muted-foreground">{booking.email}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-sm">{booking.phone}</TableCell>
+                      <TableCell>
+                        <Badge variant={booking.sport === "Soccer" ? "default" : "secondary"}>
+                          {booking.sport === "Soccer" ? "⚽" : "🏀"} {booking.sport}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div>
+                          <div className="font-medium">{booking.date}</div>
+                          <div className="text-sm text-muted-foreground">{booking.timeSlot}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">{booking.type}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Badge 
+                          variant={booking.status === "Confirmed" ? "default" : "secondary"}
+                          className={booking.status === "Confirmed" ? "bg-primary" : ""}
+                        >
+                          {booking.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex space-x-2">
+                          <Button size="sm" variant="outline">
+                            Edit
+                          </Button>
+                          <Button size="sm" variant="destructive">
+                            Cancel
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>

@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Court {
   id: string;
@@ -18,10 +19,12 @@ interface CourtSelectorProps {
 }
 
 export const CourtSelector = ({ courts, selectedCourt, onCourtSelect }: CourtSelectorProps) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-        Select Court
+        {t('selectCourt')}
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {courts.map((court) => (
@@ -45,21 +48,21 @@ export const CourtSelector = ({ courts, selectedCourt, onCourtSelect }: CourtSel
                       : "bg-secondary text-secondary-foreground"
                   }
                 >
-                  {court.sport === "soccer" ? "⚽ Soccer" : "🏀 Basketball"}
+                  {court.sport === "soccer" ? `⚽ ${t('soccer')}` : `🏀 ${t('basketball')}`}
                 </Badge>
               </div>
               
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Capacity:</span>
-                  <span className="font-medium">{court.capacity} players</span>
+                  <span className="text-muted-foreground">{t('capacity')}:</span>
+                  <span className="font-medium">{court.capacity} {t('players')}</span>
                 </div>
                 
                 {court.sport === "soccer" && court.bookedSlots > 0 && (
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Available spots:</span>
+                    <span className="text-muted-foreground">{t('availableSpots')}:</span>
                     <span className="font-medium text-primary">
-                      {court.capacity - court.bookedSlots} remaining
+                      {court.capacity - court.bookedSlots} {t('remaining')}
                     </span>
                   </div>
                 )}
@@ -75,10 +78,10 @@ export const CourtSelector = ({ courts, selectedCourt, onCourtSelect }: CourtSel
                     }`}
                   >
                     {!court.available
-                      ? "Fully Booked"
+                      ? t('fullyBooked')
                       : selectedCourt === court.id
-                      ? "Selected"
-                      : "Select Court"}
+                      ? t('selected')
+                      : t('selectCourtBtn')}
                   </Button>
                 </div>
               </div>
