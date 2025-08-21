@@ -8,35 +8,50 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Ethiopian-inspired sports theme */
+    --background: 45 20% 97%;
+    --foreground: 160 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 160 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 160 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Ethiopian green primary */
+    --primary: 145 85% 35%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 145 75% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Ethiopian yellow secondary */
+    --secondary: 48 95% 55%;
+    --secondary-foreground: 160 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 45 15% 94%;
+    --muted-foreground: 160 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Ethiopian red accent */
+    --accent: 355 85% 55%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 45 15% 88%;
+    --input: 45 15% 95%;
+    --ring: 145 85% 35%;
 
-    --radius: 0.5rem;
+    /* Sports gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(145 85% 35%), hsl(145 75% 45%));
+    --gradient-secondary: linear-gradient(135deg, hsl(48 95% 55%), hsl(45 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(145 85% 35%), hsl(48 95% 55%));
+    --gradient-court: linear-gradient(180deg, hsl(145 75% 45%), hsl(145 85% 35%));
+
+    /* Shadows */
+    --shadow-sport: 0 10px 30px -10px hsl(145 85% 35% / 0.3);
+    --shadow-glow: 0 0 40px hsl(145 75% 45% / 0.4);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +116,35 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-court {
+    background: var(--gradient-court);
+  }
+  
+  .shadow-sport {
+    box-shadow: var(--shadow-sport);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .court-card {
+    @apply bg-card rounded-xl border shadow-sport hover:shadow-glow transition-all duration-300;
+  }
+  
+  .booking-form {
+    @apply bg-card/80 backdrop-blur-sm rounded-xl border shadow-sport p-6;
   }
 }
