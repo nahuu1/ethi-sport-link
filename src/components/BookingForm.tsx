@@ -6,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 interface BookingFormProps {
   selectedCourt: string | null;
@@ -23,7 +22,6 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
     timeSlot: ""
   });
   const { toast } = useToast();
-  const { t } = useLanguage();
 
   const timeSlots = [
     "06:00 - 07:00",
@@ -75,8 +73,8 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
       <Card className="booking-form">
         <div className="text-center py-8">
           <div className="text-6xl mb-4">🏟️</div>
-          <h3 className="text-xl font-semibold mb-2">{t('selectCourtFirst')}</h3>
-          <p className="text-muted-foreground">{t('chooseCourtAbove')}</p>
+          <h3 className="text-xl font-semibold mb-2">Select a Court First</h3>
+          <p className="text-muted-foreground">Choose a court above to start your booking</p>
         </div>
       </Card>
     );
@@ -86,15 +84,15 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
     <Card className="booking-form">
       <div className="mb-6">
         <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-          {t('bookYourSlot')}
+          Book Your Slot
         </h3>
-        <p className="text-muted-foreground">{t('fillDetails')}</p>
+        <p className="text-muted-foreground">Fill in your details to complete the booking</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="name">{t('fullName')} *</Label>
+            <Label htmlFor="name">Full Name *</Label>
             <Input
               id="name"
               placeholder="Enter your full name"
@@ -105,7 +103,7 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="phone">{t('phoneNumber')} *</Label>
+            <Label htmlFor="phone">Phone Number *</Label>
             <Input
               id="phone"
               placeholder="+251 9XX XXX XXX"
@@ -117,7 +115,7 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">{t('emailAddress')} *</Label>
+          <Label htmlFor="email">Email Address *</Label>
           <Input
             id="email"
             type="email"
@@ -129,7 +127,7 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
         </div>
 
         <div className="space-y-2">
-          <Label>{t('bookingType')} *</Label>
+          <Label>Booking Type *</Label>
           <Select value={formData.bookingType} onValueChange={(value) => handleInputChange("bookingType", value)}>
             <SelectTrigger>
               <SelectValue placeholder="Select booking type" />
@@ -137,14 +135,14 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
             <SelectContent>
               <SelectItem value="group">
                 <div className="flex items-center space-x-2">
-                  <Badge variant="default" className="bg-primary">{t('group')}</Badge>
-                  <span>{t('fullCourtBooking')}</span>
+                  <Badge variant="default" className="bg-primary">Group</Badge>
+                  <span>Full court booking</span>
                 </div>
               </SelectItem>
               <SelectItem value="individual">
                 <div className="flex items-center space-x-2">
-                  <Badge variant="secondary">{t('individual')}</Badge>
-                  <span>{t('joinOthers')}</span>
+                  <Badge variant="secondary">Individual</Badge>
+                  <span>Join others (per person)</span>
                 </div>
               </SelectItem>
             </SelectContent>
@@ -153,7 +151,7 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="date">{t('date')} *</Label>
+            <Label htmlFor="date">Date *</Label>
             <Input
               id="date"
               type="date"
@@ -165,7 +163,7 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
           </div>
 
           <div className="space-y-2">
-            <Label>{t('timeSlot')} *</Label>
+            <Label>Time Slot *</Label>
             <Select value={formData.timeSlot} onValueChange={(value) => handleInputChange("timeSlot", value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Select time slot" />
@@ -186,7 +184,7 @@ export const BookingForm = ({ selectedCourt, onBookingComplete }: BookingFormPro
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-sport hover:shadow-glow transition-all duration-300"
           size="lg"
         >
-          {t('completeBooking')}
+          Complete Booking 🎯
         </Button>
       </form>
     </Card>
